@@ -1,23 +1,28 @@
-import React from "react";
+import React from 'react'
 import { Grid } from "@mui/material";
-import ListPokemons from "./ListPokemons";
-import useFetch from "../../Hooks/useFetch";
-
+import ListPokemons from './ListPokemons';
+import useFetch from '../../Hooks/useFetch';
+import CardPokemon from './CardPokemon';
 const Pokemons = () => {
-  const { data }: any = useFetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=20&offset=20`
-  );
-  const { results }: any = !!data && data;
-  console.log(results);
+    const {data}: any = useFetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=25&offset=0`
+      );
+      const { results }:any = !!data && data;
+      console.log(data);
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <ListPokemons results={results} />
+        <Grid item xs={12} md={5}>
+          {
+            results === undefined? null: <ListPokemons results={results}/>
+          }
+        </Grid>
+        <Grid item xs={12} md={7}>
+          <CardPokemon/>
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default Pokemons;
+export default Pokemons

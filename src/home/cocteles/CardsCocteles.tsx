@@ -11,7 +11,12 @@ interface bebidas {
     strDrink: string;
   }
 const CardsCocteles = ({drinks}:any) => {
-  
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
   return (
     <ImageList >
       <ImageListItem key="Subheader" cols={2}>
