@@ -2,6 +2,8 @@ import React from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { TextField } from "@mui/material";
 import {
   Pagination,
   Card,
@@ -11,26 +13,40 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import useToggleDrawer from "../../Hooks/useToggleDrawer";
+import PokemonDetails from "./PokemonDetails";
 const ListPokemons = ({ results }: any) => {
+  const initialId = "https://pokeapi.co/api/v2/pokemon/1/";
+  const {open,toggleDrawer,id} = useToggleDrawer();
   return (
     <>
       <Card>
         <CardContent>
           <Typography variant="h6" component="div">
-            Pokemons: 1000
+            Total de pokemons: 1000
           </Typography>
+          <form >
+        <TextField
+        style={{marginTop:25,marginBottom:25}}
+          id="filled-search"
+          label="Buscar"
+          type="search"
+          variant="outlined"
+          size="small"
+        />
+        </form>
           <List
             sx={{
               width: "100%",
               position: "relative",
               overflow: "auto",
-              maxHeight: 400,
+              maxHeight: 420,
               "& ul": { padding: 0 },
             }}
             subheader={<li />}
           >
             {results.map(({ name, url }: any, index: number) => (
-              <ListItemButton key={index}>
+              <ListItemButton key={index} onClick={toggleDrawer(true,url)} >
                 <ListItemText primary={name} />
                 <ListItemAvatar>
                   <CardMedia
@@ -46,7 +62,7 @@ const ListPokemons = ({ results }: any) => {
               </ListItemButton>
             ))}
           </List>
-          <Stack spacing={2} justifyContent="center" alignItems="center">
+          <Stack style={{marginTop:10}} spacing={2} justifyContent="center" alignItems="center">
             <Pagination
               count={40}
               variant="outlined"
@@ -56,6 +72,14 @@ const ListPokemons = ({ results }: any) => {
           </Stack>
         </CardContent>
       </Card>
+      <SwipeableDrawer
+        anchor="bottom"
+        open={open}
+        onClose={toggleDrawer(false,initialId)}
+        onOpen={toggleDrawer(true,initialId)}
+      >
+        <PokemonDetails url={id}/>
+      </SwipeableDrawer>
     </>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react'
 import { Grid } from "@mui/material";
 import ListPokemons from './ListPokemons';
 import useFetch from '../../Hooks/useFetch';
-import CardPokemon from './CardPokemon';
 const Pokemons = () => {
     const {data}: any = useFetch(
         `https://pokeapi.co/api/v2/pokemon?limit=25&offset=0`
@@ -18,7 +17,7 @@ const Pokemons = () => {
           }
         </Grid>
         <Grid item xs={12} md={7}>
-          <CardPokemon/>
+          
         </Grid>
       </Grid>
     </>

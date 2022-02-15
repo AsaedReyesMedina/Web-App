@@ -17,7 +17,6 @@ const CardCoctelesGrid = () => {
   };
   const { data }: any = useFetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`);
   const { drinks }: any = !!data && data;
-  console.log(drinks);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -32,7 +31,7 @@ const CardCoctelesGrid = () => {
         />
         </form>
       </Box>
-      {drinks ? <CardsCocteles drinks={drinks} /> : null}
+      {drinks ? <CardsCocteles drinks={drinks} inputValue={inputValue} /> : null}
     </>
   );
 };

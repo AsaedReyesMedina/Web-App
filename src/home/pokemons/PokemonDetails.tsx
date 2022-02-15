@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
@@ -14,14 +11,13 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 
 import useFetch from "../../Hooks/useFetch";
-const CardPokemon = () => {
-
-  const { data }: any = useFetch(`https://pokeapi.co/api/v2/pokemon/1`);
-  const { name, species, sprites, type } = !!data && data;
+const PokemonDetails = ({ url }: any) => {
+  const { data }: any = useFetch(url);
+  const { name, sprites, types, abilities } = !!data && data;
   const { front_default, front_shiny, back_default, back_shiny } =
     !!sprites && sprites;
   const imgPokemon = [front_default, front_shiny, back_default, back_shiny];
-  console.log(data);
+  console.log(abilities);
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = imgPokemon.length;
@@ -46,7 +42,6 @@ const CardPokemon = () => {
               flexGrow: 1,
             }}
           >
-            
             <SwipeableViews
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
               index={activeStep}
@@ -108,18 +103,23 @@ const CardPokemon = () => {
           </Box>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {name}
+              {name.toUpperCase()}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
+              <b>Tipo: </b> {types.map((type: any) => type.type.name)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              <b>Abilidades: </b>{" "}
+              {abilities.map(({ability}: any) => (
+                 ` ${ability.name}, `
+                
+              ))}
             </Typography>
           </CardContent>
         </Card>
       ) : null}
-      
     </>
   );
 };
 
-export default CardPokemon;
+export default PokemonDetails;
