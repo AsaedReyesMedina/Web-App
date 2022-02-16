@@ -9,11 +9,20 @@ import {
 } from "@mui/material";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import useFetch from "../../Hooks/useFetch";
-import { init,ReducerCocteles } from "../../Hooks/useReducerCocteles";
+import { useReducerCocteles } from "../../Hooks/useReducerCocteles";
 export interface State extends SnackbarOrigin {
   open: boolean;
 }
 const CardCoctel = ({ id }: any) => {
+  // reducer
+  const init = () => {
+    return JSON.parse(localStorage.getItem("listCocteles") || "[]");
+  };
+  const [listCocteles, dispatch] = React.useReducer(
+    useReducerCocteles,
+    [],
+    init
+  );
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
@@ -28,9 +37,7 @@ const CardCoctel = ({ id }: any) => {
   const handleClose = () => {
     setState({ ...state, open: false });
   };
-  // reducer
-  const initnew = init();
-  const { listCocteles, dispatch }: any = ReducerCocteles(initnew);
+  
 //acciones de la api
   const { data }: any = useFetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
@@ -51,11 +58,11 @@ const CardCoctel = ({ id }: any) => {
     dispatch(action);
     setFavorito(!favorito);
   };
-  const handdleSubmit = (e: any) => {
+  const handdleSubmit = (name: any) => {
     setFavorito(!favorito);
-    e.preventDefault();
     const newFavoritoBreaking = {
       id: new Date().getTime(),
+      name,
       url: urlNew,
     };
     const action = {
@@ -86,12 +93,14 @@ const CardCoctel = ({ id }: any) => {
                 <Typography variant="h5" component="div">
                   {item.strDrink}
                   {!favorito ? (
-                    <form onSubmit={handdleSubmit}>
                       <Button
-                        onClick={handleClick({
+                      onClick={() => {
+                        handdleSubmit(item.strDrink);
+                        handleClick({
                           vertical: "bottom",
                           horizontal: "right",
-                        })}
+                        });
+                      }}
                         type="submit"
                         style={{ marginLeft: "75%", marginTop: -65 }}
                         variant="outlined"
@@ -100,7 +109,6 @@ const CardCoctel = ({ id }: any) => {
                       >
                         Favoritos
                       </Button>
-                    </form>
                   ) : (
                     <Button
                       onClick={() => {

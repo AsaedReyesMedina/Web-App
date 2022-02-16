@@ -4,20 +4,20 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Button, ListItemAvatar, ListItemButton } from "@mui/material";
-import {init, useReducerBreaking } from "../../Hooks/useReducerBreaking";
-const ListBreaking = ({ list }: any) => {
+import { useReducerPokemon } from "../../Hooks/useReducerPokemons";
+const ListCocteles = ({ list }: any) => {
   //reducer
   const init = () => {
-    return JSON.parse(localStorage.getItem("listBreaking") || "[]");
+    return JSON.parse(localStorage.getItem("listPokemon") || "[]");
   };
-  const [listBreaking, dispatch] = React.useReducer(
-    useReducerBreaking,
+  const [listPokemon, dispatch] = React.useReducer(
+    useReducerPokemon,
     [],
     init
   );
   React.useEffect(() => {
-    localStorage.setItem("listBreaking", JSON.stringify(listBreaking));
-  }, [listBreaking]);
+    localStorage.setItem("listPokemon", JSON.stringify(listPokemon));
+  }, [listPokemon]);
   const [favorito, setFavorito] = React.useState(false);
   const handdleDelete = (listUrl: any) => {
     const action = {
@@ -41,7 +41,7 @@ const ListBreaking = ({ list }: any) => {
         }}
         subheader={<li />}
       >
-        {listBreaking.map((list: any) => (
+        {listPokemon.map((list: any) => (
           <ListItemButton key={list.id}>
             <ListItemText primary={list.name} />
             <Button
@@ -59,4 +59,4 @@ const ListBreaking = ({ list }: any) => {
   );
 };
 
-export default ListBreaking;
+export default ListCocteles;

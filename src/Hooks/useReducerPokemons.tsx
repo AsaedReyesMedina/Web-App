@@ -16,9 +16,5 @@ const useReducerPokemon = (state: any, action: any) => {
       return state;
   }
 };
-const ReducerPokemon = ({ init }: any) => {
-  const [listPokemon, dispatch] = useReducer(useReducerPokemon, [], init);
-  return {listPokemon,dispatch}
-};
 
-export { useReducerPokemon, ReducerPokemon,init };
+export { useReducerPokemon, init };

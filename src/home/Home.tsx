@@ -33,7 +33,7 @@ function App(props: any) {
       <List>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Web app chanllenge
+            Asaed Reyes
           </Typography>
         </Toolbar>
         {menu.map((menu) => (
@@ -84,7 +84,7 @@ function App(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Titulo
+            Web App Challenge
           </Typography>
           <IconButton
             color="inherit"

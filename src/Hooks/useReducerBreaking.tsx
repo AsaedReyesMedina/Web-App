@@ -16,9 +16,6 @@ const useReducerBreaking = (state: any, action: any) => {
       return state;
   }
 };
-const ReducerBreaking = ({ init }: any) => {
-  const [listBreaking, dispatch] = useReducer(useReducerBreaking, [], init);
-  return {listBreaking,dispatch}
-};
 
-export { useReducerBreaking, ReducerBreaking,init };
+
+export { useReducerBreaking, init };

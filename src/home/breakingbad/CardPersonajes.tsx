@@ -9,13 +9,19 @@ import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
 import useFetch from "../../Hooks/useFetch";
 import { Alert, List, ListItem } from "@mui/material";
-import { init, ReducerBreaking, useReducerBreaking } from "../../Hooks/useReducerBreaking";
+import { useReducerBreaking } from "../../Hooks/useReducerBreaking";
 export interface State extends SnackbarOrigin {
   open: boolean;
 }
 const CardPersonajes = ({ nombre }: any) => {
-  const initnew = init();
-  const {listBreaking,dispatch} = ReducerBreaking(initnew);
+  const init = () => {
+    return JSON.parse(localStorage.getItem("listBreaking") || "[]");
+  };
+  const [listBreaking, dispatch] = React.useReducer(
+    useReducerBreaking,
+    [],
+    init
+  );
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
@@ -43,9 +49,9 @@ const CardPersonajes = ({ nombre }: any) => {
   const [favorito, setFavorito] = React.useState(false);
   const handdleDelete = (listUrl: any) => {
     const action = {
-      type: 'delete',
+      type: "delete",
       payload: listUrl,
-    }
+    };
     dispatch(action);
     setFavorito(!favorito);
   };
@@ -54,6 +60,7 @@ const CardPersonajes = ({ nombre }: any) => {
     e.preventDefault();
     const newFavoritoBreaking = {
       id: new Date().getTime(),
+      name,
       url: urlNew,
     };
     const action = {
@@ -92,18 +99,21 @@ const CardPersonajes = ({ nombre }: any) => {
                   </Button>
                 </form>
               ) : (
-                  <Button
-                    onClick={()=>{handdleDelete(urlNew); handleClick({
+                <Button
+                  onClick={() => {
+                    handdleDelete(urlNew);
+                    handleClick({
                       vertical: "bottom",
                       horizontal: "right",
-                    });}}
-                    style={{ marginLeft: "75%", marginTop: -65 }}
-                    variant="outlined"
-                    color="error"
-                    size="small"
-                  >
-                    Quitar
-                  </Button>
+                    });
+                  }}
+                  style={{ marginLeft: "75%", marginTop: -65 }}
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                >
+                  Quitar
+                </Button>
               )}
             </Typography>
             <List style={{ marginTop: -45 }}>

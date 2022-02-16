@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { TextField } from "@mui/material";
-import {
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import CardPokemons from "./CardPokemons";
 import ListPokemon from "./ListPokemon";
 const ListPokemons = ({ results }: any) => {

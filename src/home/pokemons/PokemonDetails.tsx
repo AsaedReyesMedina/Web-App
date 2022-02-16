@@ -11,7 +11,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import useFetch from "../../Hooks/useFetch";
-import { init, ReducerPokemon } from "../../Hooks/useReducerPokemons";
+import { init,  useReducerPokemon } from "../../Hooks/useReducerPokemons";
 import { Alert } from "@mui/material";
 export interface State extends SnackbarOrigin {
   open: boolean;
@@ -32,8 +32,15 @@ const PokemonDetails = ({ url }: any) => {
     setState({ ...state, open: false });
   };
   // reducer
-  const initnew = init();
-  const { listPokemon, dispatch }: any = ReducerPokemon(initnew);
+  const init = () => {
+    return JSON.parse(localStorage.getItem("listPokemon") || "[]");
+  };
+  
+  const [listPokemon, dispatch] = React.useReducer(
+    useReducerPokemon,
+    [],
+    init
+  );
   //api
   const { data }: any = useFetch(url);
   const urlNew = url;
@@ -72,11 +79,11 @@ const PokemonDetails = ({ url }: any) => {
     dispatch(action);
     setFavorito(!favorito);
   };
-  const handdleSubmit = (e: any) => {
+  const handdleSubmit = (name: any) => {
     setFavorito(!favorito);
-    e.preventDefault();
     const newFavoritoBreaking = {
       id: new Date().getTime(),
+      name,
       url: urlNew,
     };
     const action = {
@@ -157,12 +164,14 @@ const PokemonDetails = ({ url }: any) => {
             <Typography gutterBottom variant="h5" component="div">
               {name.toUpperCase()}
               {!favorito ? (
-                <form onSubmit={handdleSubmit}>
                   <Button
-                    onClick={handleClick({
+                  onClick={() => {
+                    handdleSubmit(name);
+                    handleClick({
                       vertical: "bottom",
                       horizontal: "right",
-                    })}
+                    });
+                  }}
                     type="submit"
                     style={{ marginLeft: "75%", marginTop: -65 }}
                     variant="outlined"
@@ -171,7 +180,6 @@ const PokemonDetails = ({ url }: any) => {
                   >
                     Favoritos
                   </Button>
-                </form>
               ) : (
                 <Button
                   onClick={() => {

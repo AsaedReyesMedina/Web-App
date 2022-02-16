@@ -5,8 +5,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ListBreaking from "./ListBreaking";
-import { useReducerBreaking } from "../../Hooks/useReducerBreaking";
-
+import ListCocteles from "./ListCocteles";
+import ListPokemons from "./ListPokemons";
 const Favoritos = () => {
 
 
@@ -19,9 +19,6 @@ const Favoritos = () => {
     
   return (
     <>
-      <Typography variant="h6" gutterBottom component="div">
-        Total de favoritos: 
-      </Typography>
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
@@ -32,9 +29,8 @@ const Favoritos = () => {
           id="panel1bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Breakingbad:
+            Breakingbad
           </Typography>
-          <Typography sx={{ color: "text.secondary"}} >  </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <ListBreaking/>
@@ -50,12 +46,11 @@ const Favoritos = () => {
           id="panel2bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Cócteles:
+            Cócteles
           </Typography>
-          <Typography sx={{ color: "text.secondary" }}>8</Typography>
         </AccordionSummary>
         <AccordionDetails>
-         
+         <ListCocteles/>
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -68,12 +63,11 @@ const Favoritos = () => {
           id="panel3bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Pokemons:
+            Pokemons
           </Typography>
-          <Typography sx={{ color: "text.secondary" }}>12</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          
+          <ListPokemons/>
         </AccordionDetails>
       </Accordion>
     </>
