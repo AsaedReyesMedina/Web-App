@@ -1,23 +1,23 @@
-import React from "react";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import {
-  Pagination,
   Card,
   CardContent,
-  CardMedia,
-  List,
-  Stack,
   Typography,
 } from "@mui/material";
-import useToggleDrawer from "../../Hooks/useToggleDrawer";
-import PokemonDetails from "./PokemonDetails";
+import CardPokemons from "./CardPokemons";
+import ListPokemon from "./ListPokemon";
 const ListPokemons = ({ results }: any) => {
-  const initialId = "https://pokeapi.co/api/v2/pokemon/1/";
-  const {open,toggleDrawer,id} = useToggleDrawer();
+  const [inputValue, setInputValue] = useState("");
+  const handdleInputChange = (e: any) => {
+    setInputValue(e.target.value);
+  };
+  const handdleSubmit = (e: any) => {
+    e.preventDefault();
+    if (inputValue.trim().length > 2) {
+      setInputValue(inputValue);
+    }
+  };
   return (
     <>
       <Card>
@@ -25,61 +25,25 @@ const ListPokemons = ({ results }: any) => {
           <Typography variant="h6" component="div">
             Total de pokemons: 1000
           </Typography>
-          <form >
-        <TextField
-        style={{marginTop:25,marginBottom:25}}
-          id="filled-search"
-          label="Buscar"
-          type="search"
-          variant="outlined"
-          size="small"
-        />
-        </form>
-          <List
-            sx={{
-              width: "100%",
-              position: "relative",
-              overflow: "auto",
-              maxHeight: 420,
-              "& ul": { padding: 0 },
-            }}
-            subheader={<li />}
-          >
-            {results.map(({ name, url }: any, index: number) => (
-              <ListItemButton key={index} onClick={toggleDrawer(true,url)} >
-                <ListItemText primary={name} />
-                <ListItemAvatar>
-                  <CardMedia
-                    component="img"
-                    height="50"
-                    width="50"
-                    image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                      index + 1
-                    }.png`}
-                    alt={name}
-                  />
-                </ListItemAvatar>
-              </ListItemButton>
-            ))}
-          </List>
-          <Stack style={{marginTop:10}} spacing={2} justifyContent="center" alignItems="center">
-            <Pagination
-              count={40}
+          <form onSubmit={handdleSubmit}>
+            <TextField
+              onChange={handdleInputChange}
+              style={{ marginTop: 25, marginBottom: 25 }}
+              id="filled-search"
+              label="Busca un pokemon"
+              type="search"
               variant="outlined"
-              shape="rounded"
               size="small"
             />
-          </Stack>
+          </form>
+
+          {inputValue === "" ? (
+            <ListPokemon />
+          ) : (
+            <CardPokemons inputValue={inputValue} />
+          )}
         </CardContent>
       </Card>
-      <SwipeableDrawer
-        anchor="bottom"
-        open={open}
-        onClose={toggleDrawer(false,initialId)}
-        onOpen={toggleDrawer(true,initialId)}
-      >
-        <PokemonDetails url={id}/>
-      </SwipeableDrawer>
     </>
   );
 };

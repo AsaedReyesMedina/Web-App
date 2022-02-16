@@ -21,7 +21,7 @@ const CardsCocteles = ({ drinks,inputValue }: any) => {
     <>
       <ImageList>
         <ImageListItem key="Subheader" cols={2}>
-          <ListSubheader component="div">{inputValue}</ListSubheader>
+          <ListSubheader component="div">{inputValue.toUpperCase()}</ListSubheader>
         </ImageListItem>
         {drinks.map((item: bebidas) => (
           <ImageListItem key={item.idDrink} onClick={toggleDrawer(true,item.idDrink)} >

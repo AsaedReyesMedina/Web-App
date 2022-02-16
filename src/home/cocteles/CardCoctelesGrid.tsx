@@ -12,7 +12,7 @@ const CardCoctelesGrid = () => {
   const handdleSubmit = (e: any) => {
     e.preventDefault();
     if (inputValue.trim().length > 2) {
-      setInputValue("");
+      setInputValue(inputValue);
     }
   };
   const { data }: any = useFetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`);
@@ -24,7 +24,7 @@ const CardCoctelesGrid = () => {
         <TextField
           onChange={handdleInputChange}
           id="filled-search"
-          label="Buscar"
+          label="Busca un cóctel"
           type="search"
           variant="outlined"
           size="small"

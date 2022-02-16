@@ -17,7 +17,6 @@ const PokemonDetails = ({ url }: any) => {
   const { front_default, front_shiny, back_default, back_shiny } =
     !!sprites && sprites;
   const imgPokemon = [front_default, front_shiny, back_default, back_shiny];
-  console.log(abilities);
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = imgPokemon.length;
@@ -53,12 +52,13 @@ const PokemonDetails = ({ url }: any) => {
                   {Math.abs(activeStep - index) <= 2 ? (
                     <Box
                       component="img"
+                      
                       sx={{
-                        height: 150,
-                        display: "block",
-                        maxWidth: 150,
-                        overflow: "hidden",
-                        width: "100%",
+                        alignItems: 'center',
+                        height: 255,
+                        display: 'block',
+                        overflow: 'hidden',
+                        width: '100%',
                       }}
                       src={img}
                       alt={img}

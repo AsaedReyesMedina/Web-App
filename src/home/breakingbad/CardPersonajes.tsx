@@ -11,13 +11,12 @@ import useCounter from "../../Hooks/useCounter";
 import useFetch from "../../Hooks/useFetch";
 import { List, ListItem } from "@mui/material";
 
-const CardPersonajes = () => {
-  const { counter, reset, increment, decrement } = useCounter(1);
-  const {  data }: any = useFetch(`https://www.breakingbadapi.com/api/characters/${counter}`);
-  const {img, name, nickname, status, birthday  } =   !!data && data[0] ;
-  if (counter === 56) {
-    reset();
-  }
+const CardPersonajes = ({ nombre }: any) => {
+  const { data }: any = useFetch(
+    `https://breakingbadapi.com/api/characters?name=${nombre}`
+  );
+  const { img, name, nickname, status, birthday } = !!data && data[0];
+  console.log(data);
   return (
     <>
       {!data ? (
@@ -26,8 +25,8 @@ const CardPersonajes = () => {
           <Skeleton width="60%" />
         </Box>
       ) : (
-        <Card >
-          <CardMedia component="img" height="480"  image={img} alt="tile" />
+        <Card>
+          <CardMedia component="img" height="450" image={img} alt="tile" />
           <CardContent>
             <Typography gutterBottom variant="h6" component="div">
               {name}
@@ -35,31 +34,23 @@ const CardPersonajes = () => {
             <List>
               <ListItem>
                 <Typography gutterBottom variant="subtitle1" component="div">
-                 Nickname: <b>{nickname}</b>
-                </Typography>
-              </ListItem>
-              {birthday?(<ListItem>
-                <Typography gutterBottom variant="subtitle1" component="div">
-                  Fecha de nacimiento: <b>{birthday}</b>
-                </Typography>
-              </ListItem>):null}
-                <ListItem>
-                <Typography gutterBottom variant="subtitle1" component="div">
-                 Estado: <b>{status}</b> 
+                  Nickname: <b>{nickname}</b>
+                  {birthday ? (
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      component="div"
+                    >
+                      Fecha de nacimiento: <b>{birthday}</b>
+                    </Typography>
+                  ) : null}
+                  <Typography gutterBottom variant="subtitle1" component="div">
+                    Estado: <b>{status}</b>
+                  </Typography>
                 </Typography>
               </ListItem>
             </List>
           </CardContent>
-          <CardActions>
-            {counter > 1 ? (
-              <Button size="small" onClick={decrement}>
-                Personaje anterior
-              </Button>
-            ) : null}
-            <Button size="small" onClick={increment}>
-              Siguiente personaje
-            </Button>
-          </CardActions>
         </Card>
       )}
     </>

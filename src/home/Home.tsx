@@ -14,7 +14,9 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Menu } from "../data/menu";
+import { Menu, MenuSecundary } from "../data/menu";
+import InfoIcon from '@mui/icons-material/Info';
+import StarIcon from '@mui/icons-material/Star';
 import "./Home.css";
 const drawerWidth = 240;
 function App(props: any) {
@@ -47,6 +49,14 @@ function App(props: any) {
         ))}
       </List>
       <Divider />
+      {MenuSecundary.map((menu) => (
+            <ListItem button key={menu.id}  onClick={()=>navigate(menu.url)}>
+              <ListItemText primary={menu.title} />
+                {
+                  menu.title==="About"?<InfoIcon/>:<StarIcon/>
+                }
+            </ListItem>
+        ))}
     </div>
   );
 
@@ -76,6 +86,15 @@ function App(props: any) {
           <Typography variant="h6" noWrap component="div">
             Titulo
           </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+          </IconButton>
+        
         </Toolbar>
       </AppBar>
       <Box
