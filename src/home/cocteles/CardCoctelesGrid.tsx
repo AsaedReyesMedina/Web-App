@@ -2,9 +2,17 @@ import * as React from "react";
 import useFetch from "../../Hooks/useFetch";
 import CardsCocteles from "./CardsCocteles";
 import Box from "@mui/material/Box";
-
 import { Button, TextField } from "@mui/material";
+import CardIngredientes from "./CardIngredientes";
 const CardCoctelesGrid = () => {
+  const [filtro, setFiltro] = React.useState("s");
+  const handleClickIngrediente = ()=>{
+    setInputValue("vodka");
+    setFiltro("i");
+  }
+  const handleClickCoctel = ()=>{
+    setFiltro("s");
+  }
   const [inputValue, setInputValue] = React.useState("margarita");
   const handdleInputChange = (e: any) => {
     setInputValue(e.target.value);
@@ -16,9 +24,11 @@ const CardCoctelesGrid = () => {
     }
   };
   const { data }: any = useFetch(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filtro}=${inputValue}`
   );
+  const {ingredients}: any =  !!data && data;
   const { drinks }: any = !!data && data;
+  console.log(ingredients);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -26,23 +36,37 @@ const CardCoctelesGrid = () => {
           <TextField
             onChange={handdleInputChange}
             id="filled-search"
-            label="Busca un cóctel"
+            label="Buscar ..."
             type="search"
             variant="outlined"
             size="small"
+            style={{width: 210}}
           />
-          <Button
-            style={{ marginLeft: 10, marginTop: 5 }}
-            variant="contained"
-            size="small"
-          >
-            Filtrar
-          </Button>
+          {filtro == "s" ? (
+            <Button
+              onClick={handleClickIngrediente}
+              style={{ marginLeft: 5, marginTop: 5 }}
+              variant="contained"
+              size="small"
+            >
+              Ingredients
+            </Button>
+          ) : (
+            <Button
+              onClick={handleClickCoctel}
+              style={{ marginLeft: 10, marginTop: 5 }}
+              variant="contained"
+              size="small"
+            >
+              Cócteles
+            </Button>
+          )}
         </form>
       </Box>
       {drinks ? (
         <CardsCocteles drinks={drinks} inputValue={inputValue} />
-      ) : null}
+      ) : <CardIngredientes ingredients={ingredients}/>}
+      
     </>
   );
 };
