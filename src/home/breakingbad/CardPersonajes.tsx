@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
-import useCounter from "../../Hooks/useCounter";
 import useFetch from "../../Hooks/useFetch";
 import { List, ListItem } from "@mui/material";
 
