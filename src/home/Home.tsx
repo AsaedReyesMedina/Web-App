@@ -18,8 +18,10 @@ import { Menu, MenuSecundary } from "../data/menu";
 import InfoIcon from '@mui/icons-material/Info';
 import StarIcon from '@mui/icons-material/Star';
 import "./Home.css";
+import { UseContext } from "../Hooks/UseContext";
 const drawerWidth = 240;
 function App(props: any) {
+  const {title}:any = React.useContext(UseContext);
   const menu = Menu;
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -84,7 +86,7 @@ function App(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Web App Challenge
+            {title}
           </Typography>
           <IconButton
             color="inherit"

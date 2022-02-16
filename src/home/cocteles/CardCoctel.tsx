@@ -71,7 +71,6 @@ const CardCoctel = ({ id }: any) => {
     };
     dispatch(action);
   };
-  console.log(listCocteles);
 
   return (
     <>

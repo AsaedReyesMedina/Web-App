@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,8 +7,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ListBreaking from "./ListBreaking";
 import ListCocteles from "./ListCocteles";
 import ListPokemons from "./ListPokemons";
+import { UseContext } from "../../Hooks/UseContext";
 const Favoritos = () => {
-
+  const {setTitle}:any = React.useContext(UseContext);
+  setTitle("Favoritos");
 
   const [expanded, setExpanded] = useState<string | false>(false);
 
