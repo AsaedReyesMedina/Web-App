@@ -6,13 +6,13 @@ import { Button, TextField } from "@mui/material";
 import CardIngredientes from "./CardIngredientes";
 const CardCoctelesGrid = () => {
   const [filtro, setFiltro] = React.useState("s");
-  const handleClickIngrediente = ()=>{
+  const handleClickIngrediente = () => {
     setInputValue("vodka");
     setFiltro("i");
-  }
-  const handleClickCoctel = ()=>{
+  };
+  const handleClickCoctel = () => {
     setFiltro("s");
-  }
+  };
   const [inputValue, setInputValue] = React.useState("margarita");
   const handdleInputChange = (e: any) => {
     setInputValue(e.target.value);
@@ -26,9 +26,8 @@ const CardCoctelesGrid = () => {
   const { data }: any = useFetch(
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filtro}=${inputValue}`
   );
-  const {ingredients}: any =  !!data && data;
+  const { ingredients }: any = !!data && data;
   const { drinks }: any = !!data && data;
-  console.log(ingredients);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -40,9 +39,9 @@ const CardCoctelesGrid = () => {
             type="search"
             variant="outlined"
             size="small"
-            style={{width: 210}}
+            style={{ width: 210 }}
           />
-          {filtro == "s" ? (
+          {filtro === "s" ? (
             <Button
               onClick={handleClickIngrediente}
               style={{ marginLeft: 5, marginTop: 5 }}
@@ -65,8 +64,9 @@ const CardCoctelesGrid = () => {
       </Box>
       {drinks ? (
         <CardsCocteles drinks={drinks} inputValue={inputValue} />
-      ) : <CardIngredientes ingredients={ingredients}/>}
-      
+      ) : (
+        <CardIngredientes ingredients={ingredients} />
+      )}
     </>
   );
 };

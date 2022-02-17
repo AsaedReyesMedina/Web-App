@@ -29,22 +29,18 @@ const CardCoctel = ({ id }: any) => {
     horizontal: "center",
   });
   const { vertical, horizontal, open } = state;
-
   const handleClick = (newState: SnackbarOrigin) => () => {
     setState({ open: true, ...newState });
   };
-
   const handleClose = () => {
     setState({ ...state, open: false });
   };
-  
 //acciones de la api
   const { data }: any = useFetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
   );
   const urlNew = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { drinks }: any = !!data && data;
-
   //acciones del reduceer
   React.useEffect(() => {
     localStorage.setItem("listCocteles", JSON.stringify(listCocteles));

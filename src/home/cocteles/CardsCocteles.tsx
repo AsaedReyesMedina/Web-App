@@ -8,7 +8,6 @@ import InfoIcon from "@mui/icons-material/Info";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import CardCoctel from "./CardCoctel";
 import useToggleDrawer from "../../Hooks/useToggleDrawer";
-
 interface bebidas {
   idDrink: number;
   strDrinkThumb: string;

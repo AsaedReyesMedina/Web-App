@@ -27,17 +27,13 @@ const CardPersonajes = ({ nombre }: any) => {
     vertical: "top",
     horizontal: "center",
   });
-  console.log(listBreaking);
   const { vertical, horizontal, open } = state;
-
   const handleClick = (newState: SnackbarOrigin) => () => {
     setState({ open: true, ...newState });
   };
-
   const handleClose = () => {
     setState({ ...state, open: false });
   };
-
   const { data }: any = useFetch(
     `https://breakingbadapi.com/api/characters?name=${nombre}`
   );
