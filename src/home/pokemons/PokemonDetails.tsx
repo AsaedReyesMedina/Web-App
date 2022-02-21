@@ -11,7 +11,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import useFetch from "../../Hooks/useFetch";
-import { init,  useReducerPokemon } from "../../Hooks/useReducerPokemons";
+import { useReducerPokemon } from "../../Hooks/useReducerPokemons";
 import { Alert } from "@mui/material";
 export interface State extends SnackbarOrigin {
   open: boolean;
@@ -35,12 +35,8 @@ const PokemonDetails = ({ url }: any) => {
   const init = () => {
     return JSON.parse(localStorage.getItem("listPokemon") || "[]");
   };
-  
-  const [listPokemon, dispatch] = React.useReducer(
-    useReducerPokemon,
-    [],
-    init
-  );
+
+  const [listPokemon, dispatch] = React.useReducer(useReducerPokemon, [], init);
   //api
   const { data }: any = useFetch(url);
   const urlNew = url;
@@ -164,7 +160,7 @@ const PokemonDetails = ({ url }: any) => {
             <Typography gutterBottom variant="h5" component="div">
               {name.toUpperCase()}
               {!favorito ? (
-                  <Button
+                <Button
                   onClick={() => {
                     handdleSubmit(name);
                     handleClick({
@@ -172,14 +168,14 @@ const PokemonDetails = ({ url }: any) => {
                       horizontal: "right",
                     });
                   }}
-                    type="submit"
-                    style={{ marginLeft: "75%", marginTop: -65 }}
-                    variant="outlined"
-                    color="success"
-                    size="small"
-                  >
-                    Favoritos
-                  </Button>
+                  type="submit"
+                  style={{ marginLeft: "75%", marginTop: -65 }}
+                  variant="outlined"
+                  color="success"
+                  size="small"
+                >
+                  Favoritos
+                </Button>
               ) : (
                 <Button
                   onClick={() => {

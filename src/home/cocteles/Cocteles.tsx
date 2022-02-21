@@ -1,10 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import CardCoctelesGrid from "./CardCoctelesGrid";
-import { UseContext } from "../../Hooks/UseContext";
 function Cocteles() {
-  const { setTitle }: any = React.useContext(UseContext);
-  setTitle("Cócteles");
   return (
     <>
       <Grid container spacing={2}>

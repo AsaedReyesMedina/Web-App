@@ -4,7 +4,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { CardMedia,Stack,Pagination, } from "@mui/material";
+import {Stack,Pagination, } from "@mui/material";
 import useToggleDrawer from "../../Hooks/useToggleDrawer";
 import PokemonDetails from "./PokemonDetails";
 import useFetch from "../../Hooks/useFetch";
@@ -18,7 +18,6 @@ const ListPokemon = () => {
   );
   const { results }:any = !!data && data;
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    console.log(value);
     if(value===1){
       setPage(0);
     }else{

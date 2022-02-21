@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Card, CardContent, Typography } from "@mui/material";
 import CardPokemons from "./CardPokemons";
 import ListPokemon from "./ListPokemon";
-const ListPokemons = ({ results }: any) => {
+const ListPokemons = () => {
   const [inputValue, setInputValue] = useState("");
   const handdleInputChange = (e: any) => {
     setInputValue(e.target.value);

@@ -2,10 +2,7 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { UseContext } from "../../Hooks/UseContext";
 const About = () => {
-  const { setTitle }: any = React.useContext(UseContext);
-  setTitle("Web App Challenge");
   return (
     <Card>
       <CardContent>
@@ -16,7 +13,10 @@ const About = () => {
           Web App Challenge
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Una aplicación ReactJS que utiliza tres endpoints:
+          Una aplicación ReactJS que utiliza tres endpoints:<br/>
+          <b>Breaking Bad</b><br/>
+          <b>The cocktail DB</b><br/>
+          <b>PokeApi</b> 
         </Typography>
       </CardContent>
     </Card>

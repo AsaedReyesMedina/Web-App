@@ -1,70 +1,25 @@
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Menu, MenuSecundary } from "../data/menu";
-import InfoIcon from '@mui/icons-material/Info';
-import StarIcon from '@mui/icons-material/Star';
 import "./Home.css";
-import { UseContext } from "../Hooks/UseContext";
+import DrawerMenu from "./ui/DrawerMenu";
 const drawerWidth = 240;
 function App(props: any) {
-  const {title}:any = React.useContext(UseContext);
-  const menu = Menu;
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const navigate = useNavigate();
-  const drawer = (
-    <div>
-      <List>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Asaed Reyes
-          </Typography>
-        </Toolbar>
-        {menu.map((menu) => (
-            <ListItem button key={menu.id}  onClick={()=>navigate(menu.url)}>
-              <ListItemText primary={menu.title} />
-              <img
-                src={menu.img}
-                alt={menu.title}
-                loading="lazy"
-                className="imgItemMenu"
-              />
-            </ListItem>
-        ))}
-      </List>
-      <Divider />
-      {MenuSecundary.map((menu) => (
-            <ListItem button key={menu.id}  onClick={()=>navigate(menu.url)}>
-              <ListItemText primary={menu.title} />
-                {
-                  menu.title==="About"?<InfoIcon/>:<StarIcon/>
-                }
-            </ListItem>
-        ))}
-    </div>
-  );
-
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -86,7 +41,7 @@ function App(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            {title}
+            Web App Challenge
           </Typography>
           <IconButton
             color="inherit"
@@ -94,9 +49,7 @@ function App(props: any) {
             edge="end"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-          >
-          </IconButton>
-        
+          ></IconButton>
         </Toolbar>
       </AppBar>
       <Box
@@ -121,7 +74,7 @@ function App(props: any) {
             },
           }}
         >
-          {drawer}
+          {<DrawerMenu />}
         </Drawer>
         <Drawer
           variant="permanent"
@@ -134,7 +87,7 @@ function App(props: any) {
           }}
           open
         >
-          {drawer}
+          {<DrawerMenu />}
         </Drawer>
       </Box>
       <Box
@@ -153,10 +106,6 @@ function App(props: any) {
 }
 
 App.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

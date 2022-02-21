@@ -1,6 +1,5 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
@@ -8,12 +7,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
 import useFetch from "../../Hooks/useFetch";
-import { Alert, List, ListItem } from "@mui/material";
+import {  List, ListItem } from "@mui/material";
 import { useReducerBreaking } from "../../Hooks/useReducerBreaking";
-export interface State extends SnackbarOrigin {
-  open: boolean;
-}
+import useHanddleReducer from "../../Hooks/useHanddleReducer";
+import useHanddleSnack from "../../Hooks/useHanddleSnack";
+import SnackbarFavoritos from "../ui/SnackbarFavoritos";
 const CardPersonajes = ({ nombre }: any) => {
+  const {state,handleClose, handleClick } = useHanddleSnack();
   const init = () => {
     return JSON.parse(localStorage.getItem("listBreaking") || "[]");
   };
@@ -22,18 +22,6 @@ const CardPersonajes = ({ nombre }: any) => {
     [],
     init
   );
-  const [state, setState] = React.useState<State>({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
-  const { vertical, horizontal, open } = state;
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    setState({ open: true, ...newState });
-  };
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
   const { data }: any = useFetch(
     `https://breakingbadapi.com/api/characters?name=${nombre}`
   );
@@ -42,29 +30,11 @@ const CardPersonajes = ({ nombre }: any) => {
   React.useEffect(() => {
     localStorage.setItem("listBreaking", JSON.stringify(listBreaking));
   }, [listBreaking]);
-  const [favorito, setFavorito] = React.useState(false);
-  const handdleDelete = (listUrl: any) => {
-    const action = {
-      type: "delete",
-      payload: listUrl,
-    };
-    dispatch(action);
-    setFavorito(!favorito);
-  };
-  const handdleSubmit = (e: any) => {
-    setFavorito(!favorito);
-    e.preventDefault();
-    const newFavoritoBreaking = {
-      id: new Date().getTime(),
-      name,
-      url: urlNew,
-    };
-    const action = {
-      type: "add",
-      payload: newFavoritoBreaking,
-    };
-    dispatch(action);
-  };
+  const { favorito, handdleDelete, handdleSubmit } = useHanddleReducer(
+    dispatch,
+    name,
+    urlNew
+  );
   return (
     <>
       {!data ? (
@@ -134,17 +104,7 @@ const CardPersonajes = ({ nombre }: any) => {
           </CardContent>
         </Card>
       )}
-
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        key={vertical + horizontal}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Agregado a favoritos
-        </Alert>
-      </Snackbar>
+      <SnackbarFavoritos state={state} handleClose={handleClose}/>
     </>
   );
 };

@@ -1,4 +1,3 @@
-import React, { useEffect, useReducer } from "react";
 
 const init = () => {
   return JSON.parse(localStorage.getItem("listBreaking") || "[]");

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -14,19 +13,11 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import useFetch from "../../Hooks/useFetch";
 import useToggleDrawer from "../../Hooks/useToggleDrawer";
 import CardPersonajes from "./CardPersonajes";
+import useInputValue from "../../Hooks/useInputValue";
 const CardListBreakingbad = () => {
   const { open, toggleDrawer, id } = useToggleDrawer();
   const initialId = "";
-  const [inputValue, setInputValue] = useState("");
-  const handdleInputChange = (e: any) => {
-    setInputValue(e.target.value);
-  };
-  const handdleSubmit = (e: any) => {
-    e.preventDefault();
-    if (inputValue.trim().length > 2) {
-      setInputValue(inputValue);
-    }
-  };
+  const {inputValue,handdleInputChange,handdleSubmit} = useInputValue()
   const { data }: any = useFetch(
     `https://breakingbadapi.com/api/characters?name=${inputValue}`
   );

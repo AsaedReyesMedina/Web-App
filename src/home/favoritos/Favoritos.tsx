@@ -7,13 +7,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ListBreaking from "./ListBreaking";
 import ListCocteles from "./ListCocteles";
 import ListPokemons from "./ListPokemons";
-import { UseContext } from "../../Hooks/UseContext";
 const Favoritos = () => {
-  const {setTitle}:any = React.useContext(UseContext);
-  setTitle("Favoritos");
-
   const [expanded, setExpanded] = useState<string | false>(false);
-
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);

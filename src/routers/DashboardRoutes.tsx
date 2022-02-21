@@ -7,7 +7,7 @@ import Favoritos from "../home/favoritos/Favoritos";
 import Pokemons from "../home/pokemons/Pokemons";
 import Home from "./../home/Home";
 const DashboardRoutes = () => {
-  return (
+   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}>
